@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from "react";
 import { FaRegBell } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";

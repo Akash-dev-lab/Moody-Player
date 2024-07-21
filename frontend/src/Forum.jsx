@@ -1,7 +1,5 @@
-import React from 'react'
 import Sidebar from './Sidebar/Sidebar'
 import ForumDash from './Forum-Dashboard/ForumDash'
-import Chatforum from './Forum-Dashboard/Chatforum'
 
 const Forum = () => {
   return (
@@ -9,7 +7,6 @@ const Forum = () => {
       <div className='container flex gap-20 justify-between mx-auto w-full p-4'>
         <Sidebar />
         <ForumDash />
-        <Chatforum />
       </div>
     </div>
   )

@@ -1,0 +1,10 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "complexity": ["error", 10] // adjust the complexity threshold as needed
+    }
+  }
