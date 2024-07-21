@@ -7,7 +7,7 @@ const modules = [
 
 const ModuleList = () => {
     return (
-        <div className="max-w-4xl mx-auto mt-8">
+        <div className="max-w-4xl mx-auto mt-14">
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-200">
                     <thead>

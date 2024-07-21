@@ -5,21 +5,13 @@ import TimeHeaderdash from './TimeHeaderdash'
 
 const TimeDash = () => {
   return (
-    <div className="bg-[#E8F1F2] flex ">
-      <div className='gap-20 flex justify-center p-4'>
-        <Sidebar />
-
-        <div className='container w-full'>
+        <div className='w-full flex items-center'>
+          <div className='mt-3'>
             <TimeHeaderdash />
             <Classes />
             <LectureTable />
+          </div>
         </div>
-       
-      </div>
-
-      
-
-    </div>
   )
 }
 

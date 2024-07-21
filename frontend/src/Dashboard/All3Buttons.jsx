@@ -4,7 +4,7 @@ import Button3 from './Buttons/Button3'
 
 const All3Buttons = () => {
   return (
-    <div className='container flex justify-center items-center space-x-4'>
+    <div className='container flex justify-center items-center space-x-9'>
         <Button />
         <Button2 />
         <Button3 />

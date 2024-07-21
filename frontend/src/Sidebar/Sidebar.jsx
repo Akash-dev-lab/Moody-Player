@@ -11,12 +11,12 @@ import Navbar from './Navbar';
 
 const Sidebar = () => {
   return (
-    <div className="flex justify-center h-screen">
-      <div className="bg-[#05204A] w-80 rounded-[20px] p-4">
+    <div className="flex justify-center">
+      <div className="bg-[#05204A] w-full md:w-64 lg:w-72 xl:w-80 2xl:w-96 rounded-[20px] p-4">
         <Navbar />
         <Profile />
         
-        <div className="buttons p-10 flex flex-col md:flex-col lg:flex-col 2xl:flex-col md:shrink-0">
+        <div className="buttons p-10 flex flex-col md:flex-col lg:flex-col xl:flex-col 2xl:flex-col md:shrink-0">
           <Link to="/home"><Home /></Link>
           <br />
           <Link to="/course"><Coursebutton /></Link>

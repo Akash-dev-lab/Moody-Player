@@ -11,9 +11,9 @@ const HeaderDash = () => {
   };
 
   return (
-    <div className="dashboard-header h-28 flex items-center justify-between px-4">
+    <div className="dashboard-header h-28 flex items-center justify-between">
       <div className="title flex flex-col items-center cursor-pointer">
-        <h1 className="text-2xl font-bold text-[#00173D] float-left">My Courses</h1>
+        <h1 className="text-2xl font-bold text-[#00173D]">My Courses</h1>
       </div>
       
       <div className="icons flex items-center gap-4">

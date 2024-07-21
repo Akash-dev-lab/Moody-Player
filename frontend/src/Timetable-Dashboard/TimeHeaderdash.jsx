@@ -11,13 +11,11 @@ const TimeHeaderdash = () => {
     };
 
     return (
-        <div className="dashboard-header h-28 flex items-center px-4">
+        <div className="h-28 flex items-center px-4 justify-between">
             
             <div className="title flex flex-col items-center cursor-pointer">
                 <h1 className="text-2xl font-bold text-[#00173D]">Time Table</h1>
             </div>
-
-            <div className="flex justify-between"></div>
 
             <div className="icons flex items-center gap-4">
                 <FaRegBell className="mr-2 cursor-pointer" onClick={handleBellClick} size={25} />

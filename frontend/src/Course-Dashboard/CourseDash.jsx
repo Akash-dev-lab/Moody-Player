@@ -6,22 +6,14 @@ import SemesterNavigation from './SemesterNavigation'
 
 const CourseDash = () => {
   return (
-    <div className="bg-[#E8F1F2] flex ">
-      <div className='gap-20 flex justify-center p-4'>
-        <Sidebar />
-
-        <div className='container w-full'>
-        <HeaderDash />
-        <All3Buttons />
-        <SemesterNavigation />
-        <ModuleList />
+        <div className='w-full flex items-center'>
+          <div className='mt-3'>
+            <HeaderDash />
+            <All3Buttons />
+            <SemesterNavigation />
+            <ModuleList />
+          </div>
         </div>
-       
-      </div>
-
-      
-
-    </div>
   )
 }
 
