@@ -18,7 +18,7 @@ const Searchbar = () => {
       </div>
       <input
         type="text"
-        className="block w-full pl-10 pr-3 py-2 border drop-shadow-blue-700 rounded-3xl focus:outline-none focus:ring-blue-700 focus:border-yellow-500 sm:text-sm"
+        className="block w-96 pl-10 pr-3 py-2 border drop-shadow-blue-700 rounded-3xl focus:outline-none focus:ring-blue-700 focus:border-yellow-500 sm:text-sm"
         placeholder="Search"
       />
     </div>

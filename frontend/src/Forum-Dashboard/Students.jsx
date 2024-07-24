@@ -8,7 +8,7 @@ const students = [
 
 const Students = () => {
   return (
-    <div className="w-full h-1/2 mx-auto bg-white shadow-lg rounded-lg mt-4">
+    <div className="w-96 bg-white shadow-lg rounded-lg mt-4">
       <div className="py-4 px-6">
         <h2 className="text-2xl font-bold text-gray-800">Students</h2>
         <ul className="divide-y divide-gray-300">
