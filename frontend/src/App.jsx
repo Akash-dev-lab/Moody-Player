@@ -7,6 +7,7 @@ import Register from './Signup-process/Register'
 import Course from './Course'
 import Timetable from './Timetable'
 import Forum from './Forum'
+import Settings from './Settings'
 // import Assignment from './Assignment' Give path Correctly !
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         {/* <Route path="/assignment" element={<Assignment />} /> Enable it when Assignment component is Active */}
         <Route path="timetable" element={<Timetable />} />
         <Route path="/forum" element={<Forum />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<Forgotpswd />} />
