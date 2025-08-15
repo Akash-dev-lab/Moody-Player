@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/comfortaa": "^5.2.6",
+    "@fontsource/orbitron": "^5.2.6",
+    "@fontsource/russo-one": "^5.2.6",
     "@tailwindcss/vite": "^4.1.12",
     "face-api.js": "^0.22.2",
     "framer-motion": "^12.23.12",

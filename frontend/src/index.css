@@ -1,1 +1,18 @@
 @import "tailwindcss";
+@import "@fontsource/orbitron/400.css";
+@import "@fontsource/orbitron/700.css";
+@import "@fontsource/russo-one";
+@import "@fontsource/comfortaa/400.css";
+@import "@fontsource/comfortaa/700.css";
+
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.font-russo {
+  font-family: 'Russo One', sans-serif;
+}
+
+.font-comfortaa {
+  font-family: 'Comfortaa', cursive;
+}

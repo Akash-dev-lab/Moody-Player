@@ -8,9 +8,9 @@ const MoodyPlayer = () => {
   const [mood, setMood] = useState("");
 
   const songs = [
-    { id: 1, title: "Song1" },
-    { id: 2, title: "Song2" },
-    { id: 3, title: "Song3" },
+    { id: 1, title: "Song 1" },
+    { id: 2, title: "Song 2" },
+    { id: 3, title: "Song 3" },
   ];
 
   // Load face-api.js models
@@ -82,25 +82,25 @@ const MoodyPlayer = () => {
           <div className="flex flex-col items-center space-y-6">
           <button
             onClick={handleDetectMood}
-            className="w-full md:w-auto px-6 py-3 border border-green-500 rounded-lg cursor-pointer text-green-400 hover:bg-green-500 hover:text-black transition font-medium text-center"
+            className="w-full md:w-auto px-6 py-3 border border-dotted font-russo border-green-500 rounded-lg cursor-pointer text-green-400 hover:bg-green-500 hover:text-black transition font-medium text-center"
           >
             Detect Mood
           </button>
 
-          <p>Play Music According to your mood 😍</p>
+          <p className="font-comfortaa">Play Music According to your mood 😍</p>
           </div>
         </div>
 
         {/* Show mood */}
         {mood && (
-          <p className="text-center text-lg text-green-400">
-            <span className="text-white">Mood:</span> <span className="font-bold">{mood}</span>
+          <p className="text-center lg:text-4xl text-green-400">
+            <span className="text-white font-russo">Mood:</span> <span className="font-bold font-orbitron">{mood}</span>
           </p>
         )}
 
         {/* Recommended Songs */}
         <div>
-          <h2 className="text-blue-400 text-lg mb-4 font-semibold">
+          <h2 className="font-russo tracking-wider lg:text-4xl md:text-2xl sm:4xl mb-4 font-semibold">
             Recommended Songs
           </h2>
           <div className="space-y-2">
@@ -109,10 +109,10 @@ const MoodyPlayer = () => {
                 key={song.id}
                 className="flex justify-between items-center border border-yellow-600 rounded-md px-4 py-3 hover:bg-yellow-900 transition"
               >
-                <span className="text-yellow-400 font-semibold">
+                <span className="text-yellow-400 font-comfortaa font-semibold">
                   {song.title}
                 </span>
-                <button className="border border-yellow-500 rounded-full p-1 hover:bg-yellow-500 hover:text-black transition">
+                <button className="border font-comfortaa border-yellow-500 rounded-full p-1 hover:bg-yellow-500 hover:text-black transition">
                   <Play size={18} />
                 </button>
               </div>
