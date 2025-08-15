@@ -35,7 +35,8 @@ router.get('/songs', async (req, res) => {
     console.log(Songs)
 
     res.status(200).json({
-        message: "Songs fetched succesfully"
+        message: "Songs fetched succesfully",
+        Songs: Songs
     })
 })
 

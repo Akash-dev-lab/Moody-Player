@@ -1,17 +1,13 @@
 import { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
 import { Play } from "lucide-react";
+import axios from 'axios'
 
 const MoodyPlayer = () => {
   const videoRef = useRef(null);
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [mood, setMood] = useState("");
-
-  const songs = [
-    { id: 1, title: "Song 1" },
-    { id: 2, title: "Song 2" },
-    { id: 3, title: "Song 3" },
-  ];
+  const [songs, setSongs] = useState([]);
 
   // Load face-api.js models
   useEffect(() => {
@@ -31,9 +27,8 @@ const MoodyPlayer = () => {
     if (modelsLoaded) {
       navigator.mediaDevices
         .getUserMedia({ video: true })
-        .then((stream) => {
-          videoRef.current.srcObject = stream;
-        })
+        .then((stream) => videoRef.current.srcObject = stream
+        )
         .catch((err) => console.error("Camera error:", err));
     }
   }, [modelsLoaded]);
@@ -46,14 +41,21 @@ const MoodyPlayer = () => {
       .detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
       .withFaceExpressions();
 
+    let detectedMood = "No face detected 😵";
+
     if (detections && detections.expressions) {
       const sorted = Object.entries(detections.expressions).sort(
         (a, b) => b[1] - a[1]
       );
-      setMood(sorted[0][0]); // highest probability expression
-    } else {
-      setMood("No face detected 😵");
+      detectedMood = sorted[0][0]; // highest probability expression
     }
+    setMood(detectedMood);
+
+    axios.get(`http://localhost:3000/songs?mood=${detectedMood}`)
+      .then(res => {
+        let allSongs = res.data.Songs
+        setSongs(allSongs)
+      })
   };
 
   return (
@@ -115,19 +117,24 @@ const MoodyPlayer = () => {
             Recommended Songs
           </h2>
           <div className="space-y-2">
-            {songs.map((song) => (
-              <div
-                key={song.id}
-                className="flex justify-between items-center border cursor-pointer border-yellow-600 rounded-md px-4 py-3 hover:bg-yellow-900 transition"
-              >
-                <span className="text-yellow-400 font-comfortaa font-semibold">
-                  {song.title}
-                </span>
-                <button className="border font-comfortaa border-yellow-500 rounded-full p-1 hover:bg-yellow-500 hover:text-black transition">
-                  <Play size={18} />
-                </button>
-              </div>
-            ))}
+            {songs.length > 0 ? (
+              songs.map((song) => (
+                <div
+                  key={song._id}
+                  className="flex justify-between items-center border cursor-pointer border-yellow-600 rounded-md px-4 py-3 hover:bg-yellow-900 transition"
+                >
+                  <span className="text-yellow-400 font-comfortaa font-semibold">
+                    {song.title}
+                  </span>
+                  <button  onClick={() => window.open(song.image, "_blank")} className="border font-comfortaa border-yellow-500 rounded-full p-1 hover:bg-yellow-500 hover:text-black transition">
+                    <Play size={18} />
+
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-yellow-400 font-comfortaa text-center">Detect Your Mood then Songs will appear here..</p>
+            )}
           </div>
         </div>
 
