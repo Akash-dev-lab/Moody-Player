@@ -1,76 +1,128 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
+import { Play } from "lucide-react";
 
-const MoodPlayer = () => {
+const MoodyPlayer = () => {
   const videoRef = useRef(null);
-  const [currentMood, setCurrentMood] = useState("neutral");
-  const [audio, setAudio] = useState(null);
+  const [modelsLoaded, setModelsLoaded] = useState(false);
+  const [mood, setMood] = useState("");
 
-  const moodToMusic = {
-    happy: "/assets/music/happy.mp3",
-    sad: "/assets/music/sad.mp3",
-    angry: "/assets/music/angry.mp3",
-    neutral: "/assets/music/neutral.mp3",
-  };
+  const songs = [
+    { id: 1, title: "Song1" },
+    { id: 2, title: "Song2" },
+    { id: 3, title: "Song3" },
+  ];
 
-  const getTopExpression = (expressions) => {
-    return Object.entries(expressions)
-      .sort((a, b) => b[1] - a[1])[0][0];
-  };
+  // Load face-api.js models
+  useEffect(() => {
+    const loadModels = async () => {
+      const MODEL_URL = "/models";
+      await Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+        faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+      ]);
+      setModelsLoaded(true);
+    };
+    loadModels();
+  }, []);
 
-  const startVideo = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
-    videoRef.current.srcObject = stream;
-  };
+  // Start camera
+  useEffect(() => {
+    if (modelsLoaded) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+          videoRef.current.srcObject = stream;
+        })
+        .catch((err) => console.error("Camera error:", err));
+    }
+  }, [modelsLoaded]);
 
-  const loadModels = async () => {
-    const MODEL_URL = "/models";
-    await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-    await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
-  };
+  // Detect mood
+  const handleDetectMood = async () => {
+    if (!modelsLoaded || !videoRef.current) return;
 
-  const detectMood = async () => {
-    const detection = await faceapi
+    const detections = await faceapi
       .detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
       .withFaceExpressions();
 
-      console.log(detection)
-
-    if (detection && detection.expressions) {
-      const mood = getTopExpression(detection.expressions);
-      if (mood !== currentMood) {
-        setCurrentMood(mood);
-        playMusicForMood(mood);
-      }
+    if (detections && detections.expressions) {
+      const sorted = Object.entries(detections.expressions).sort(
+        (a, b) => b[1] - a[1]
+      );
+      setMood(sorted[0][0]); // highest probability expression
+    } else {
+      setMood("No face detected");
     }
   };
-
-  const playMusicForMood = (mood) => {
-    if (audio) {
-      audio.pause();
-    }
-    const newAudio = new Audio(moodToMusic[mood] || moodToMusic["neutral"]);
-    newAudio.play();
-    setAudio(newAudio);
-  };
-
-  useEffect(() => {
-    loadModels().then(startVideo);
-
-    const interval = setInterval(() => {
-      detectMood();
-    }, 500); // check every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [5]);
 
   return (
-    <div className="text-center mt-10">
-      <h2 className="text-2xl font-bold">🎧 Mood Detection Music Player</h2>
-      <p className="mt-2">Current Mood: <span className="font-semibold">{currentMood}</span></p>
-      <video ref={videoRef} autoPlay muted width="400" height="300" className="mx-auto mt-4 rounded-md shadow-lg" />
+    <div className="min-h-screen bg-gray-900 text-white flex justify-center items-center p-4">
+      <div className="w-full max-w-8xl border border-blue-500 rounded-xl p-6 space-y-6">
+        
+        {/* Camera & Detect Mood */}
+        <div className="flex flex-col md:flex-row gap-4 lg:w-[80%] justify-between items-center">
+          {/* Camera Box */}
+          <div className="flex justify-center border border-red-400 rounded-lg w-full h-64 sm:h-72 lg:h-auto md:h-96 lg:w-[60%] relative">
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              className="w-full h-full object-cover rounded-lg"
+            />
+            {!modelsLoaded && (
+              <span className="absolute text-red-400 font-semibold">
+                Loading models...
+              </span>
+            )}
+          </div>
+          
+          {/* Detect Mood Button */}
+          <div className="flex flex-col items-center space-y-6">
+          <button
+            onClick={handleDetectMood}
+            className="w-full md:w-auto px-6 py-3 border border-green-500 rounded-lg cursor-pointer text-green-400 hover:bg-green-500 hover:text-black transition font-medium text-center"
+          >
+            Detect Mood
+          </button>
+
+          <p>Play Music According to your mood 😍</p>
+          </div>
+        </div>
+
+        {/* Show mood */}
+        {mood && (
+          <p className="text-center text-lg text-green-400">
+            <span className="text-white">Mood:</span> <span className="font-bold">{mood}</span>
+          </p>
+        )}
+
+        {/* Recommended Songs */}
+        <div>
+          <h2 className="text-blue-400 text-lg mb-4 font-semibold">
+            Recommended Songs
+          </h2>
+          <div className="space-y-2">
+            {songs.map((song) => (
+              <div
+                key={song.id}
+                className="flex justify-between items-center border border-yellow-600 rounded-md px-4 py-3 hover:bg-yellow-900 transition"
+              >
+                <span className="text-yellow-400 font-semibold">
+                  {song.title}
+                </span>
+                <button className="border border-yellow-500 rounded-full p-1 hover:bg-yellow-500 hover:text-black transition">
+                  <Play size={18} />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 };
 
-export default MoodPlayer;
+export default MoodyPlayer;

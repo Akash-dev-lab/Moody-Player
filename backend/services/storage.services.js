@@ -11,10 +11,7 @@ function uploadFile(file) {
         imagekit.upload({
             file: file.buffer,
             fileName: "Hello-AK"
-        }, (error, result) => {
-            if(error) reject(error)
-                else resolve(result)
-        })
+        }, (error, result) => error ? reject(result) : resolve(result))
     })
 }
 
