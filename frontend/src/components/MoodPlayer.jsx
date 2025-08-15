@@ -52,14 +52,14 @@ const MoodyPlayer = () => {
       );
       setMood(sorted[0][0]); // highest probability expression
     } else {
-      setMood("No face detected");
+      setMood("No face detected 😵");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex justify-center items-center p-4">
+    <div className="min-h-screen bg-black text-white flex justify-center items-center p-4">
       <div className="w-full max-w-8xl border border-blue-500 rounded-xl p-6 space-y-6">
-        
+
         {/* Camera & Detect Mood */}
         <div className="flex flex-col md:flex-row gap-4 lg:w-[80%] justify-between items-center">
           {/* Camera Box */}
@@ -77,17 +77,28 @@ const MoodyPlayer = () => {
               </span>
             )}
           </div>
-          
+
           {/* Detect Mood Button */}
           <div className="flex flex-col items-center space-y-6">
-          <button
-            onClick={handleDetectMood}
-            className="w-full md:w-auto px-6 py-3 border border-dotted font-russo border-green-500 rounded-lg cursor-pointer text-green-400 hover:bg-green-500 hover:text-black transition font-medium text-center"
-          >
-            Detect Mood
-          </button>
+            <button
+              onClick={handleDetectMood}
+              className="relative w-full md:w-auto px-6 py-3 rounded-lg cursor-pointer 
+             text-green-400 font-russo text-2xl text-center
+             bg-gray-800/5 backdrop-blur-md shadow-lg shadow-green-500/10
+             hover:text-white transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10">Detect Mood</span>
 
-          <p className="font-comfortaa">Play Music According to your mood 😍</p>
+              {/* Animated border */}
+              <span className="absolute inset-1 rounded-lg p-[2px] bg-gradient-to-r from-black via-transparent to-green-900 
+                   animate-border-spin"></span>
+
+              {/* Inner background so border is visible */}
+              <span className="absolute inset-[3px] rounded-lg bg-gray-800/5 backdrop-blur-md"></span>
+            </button>
+
+
+            <p className="font-comfortaa">Play Music According to your mood 😍</p>
           </div>
         </div>
 
@@ -107,7 +118,7 @@ const MoodyPlayer = () => {
             {songs.map((song) => (
               <div
                 key={song.id}
-                className="flex justify-between items-center border border-yellow-600 rounded-md px-4 py-3 hover:bg-yellow-900 transition"
+                className="flex justify-between items-center border cursor-pointer border-yellow-600 rounded-md px-4 py-3 hover:bg-yellow-900 transition"
               >
                 <span className="text-yellow-400 font-comfortaa font-semibold">
                   {song.title}
