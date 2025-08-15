@@ -8,6 +8,7 @@ const MoodyPlayer = () => {
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [mood, setMood] = useState("");
   const [songs, setSongs] = useState([]);
+  const API = import.meta.env.VITE_API_URL; 
 
   // Load face-api.js models
   useEffect(() => {
@@ -51,7 +52,7 @@ const MoodyPlayer = () => {
     }
     setMood(detectedMood);
 
-    axios.get(`http://localhost:3000/songs?mood=${detectedMood}`)
+    axios.get(`${API}/songs?mood=${detectedMood}`)
       .then(res => {
         let allSongs = res.data.Songs
         setSongs(allSongs)
