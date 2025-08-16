@@ -3,8 +3,14 @@ const router = express.Router()
 const multer = require('multer')
 const uploadFile = require("../services/storage.services")
 const songModel = require('../models/song.model')
+// const { route } = require('../app')
 
 const upload = multer({storage: multer.memoryStorage()})
+
+// router.use((req, res, next) => {
+//     console.log("This mdlware is b/w Router & API")
+//      next()
+// })
 
 router.post('/songs', upload.single("image"), async (req, res) => {
     console.log(req.body)
